@@ -385,8 +385,15 @@ export default function App() {
       case 'reservation':
         if (!appState.user) return <LoginRegister onLogin={handleLogin} />;
         return <Reservation user={appState.user} onNavigate={handleModuleChange} />;
-      case 'queue':
-        return <Queue queueNumber={appState.queueNumber} onJoinQueue={(num) => updateAppState({ queueNumber: num })} />;
+ case 'queue':
+  if (!appState.user) return <LoginRegister onLogin={handleLogin} />;
+  return (
+    <Queue
+      user={appState.user}
+      queueNumber={appState.queueNumber}
+      onJoinQueue={(num) => updateAppState({ queueNumber: num })}
+    />
+  );
       case 'menu':
         return (
           <Menu
